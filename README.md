@@ -1,2 +1,2 @@
-# -Frequent-Pattern-Growth-FP-growth-Algorithm
-Implement  Frequent Pattern (FP) Growth Algorithm
+# Frequent-Pattern-Growth-Algorithm
+Implement Frequent Pattern Growth (FP-Growth) Algorithm
