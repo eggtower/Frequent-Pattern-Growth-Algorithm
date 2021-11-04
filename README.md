@@ -46,4 +46,4 @@ Implement Frequent Pattern Growth (FP-Growth) Algorithm
         </tr>
     </tbody>
 </table>
-In this implementation, I use the second and third column trying to find the association between the items in each transaction through FP- algorithm.
+In this implementation, I use the second and third column trying to find the association between the items in each transaction through FP-growth algorithm.
