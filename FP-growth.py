@@ -5,8 +5,6 @@ from itertools import combinations
 ''' Read the data.txt and then set the data format like:
     items = {{A,B,C},{B,C,D},...}
 '''
-
-
 def readData(fileName):
     TDB = dict();
     items = [];
@@ -26,8 +24,6 @@ def readData(fileName):
 ''' sortFreqSup { item:freq, item:freq,....}
     left the item whose frequence is bigger than minimumSup
 '''
-
-
 def cleanNsort(items, minimumSup):
     # count each item's frequence
     itemFreq = defaultdict(int);
@@ -48,8 +44,6 @@ def cleanNsort(items, minimumSup):
     and order each items as sortedFreqSup's order
     See details P.51
 '''
-
-
 def orderItemByFreq(items, sortFreqSup):
     orderItems = [];
 
@@ -68,8 +62,6 @@ def orderItemByFreq(items, sortFreqSup):
       ....
     }
 '''
-
-
 def createHeaderTable(sortFreqSup):
     headerTable = dict();
     for item, freq in sortFreqSup.items():
