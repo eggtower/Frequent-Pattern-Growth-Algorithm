@@ -2,6 +2,10 @@ from _collections import defaultdict
 from audioop import reverse
 from itertools import combinations
 
+''' Read the data.txt and then set the data format like:
+    items = {{A,B,C},{B,C,D},...}
+'''
+
 
 def readData(fileName):
     TDB = dict();
@@ -19,6 +23,10 @@ def readData(fileName):
         items.append(set(value));
     return items;
 
+''' sortFreqSup { item:freq, item:freq,....}
+    left the item whose frequence is bigger than minimumSup
+'''
+
 
 def cleanNsort(items, minimumSup):
     # count each item's frequence
@@ -35,6 +43,12 @@ def cleanNsort(items, minimumSup):
                               reverse=True));
     return sortFreqSup;
 
+''' orderItems [ item, item, item, ....]
+    eliminate items which not in the sortedFreqSup
+    and order each items as sortedFreqSup's order
+    See details P.51
+'''
+
 
 def orderItemByFreq(items, sortFreqSup):
     orderItems = [];
@@ -47,6 +61,13 @@ def orderItemByFreq(items, sortFreqSup):
         if(len(tmpItem) > 0):
             orderItems.append(tmpItem);
     return orderItems;
+
+''' headerTable 
+    { item:[freq, treeNode], 
+      item:[freq, treeNode],
+      ....
+    }
+'''
 
 
 def createHeaderTable(sortFreqSup):
@@ -82,13 +103,7 @@ def constructTree(orderedItems, headerTable):
 def updateNextSame(treeNode, nextSameNode):
     while treeNode.nextSame is not None:
         treeNode = treeNode.nextSame;
-    treeNode.nextSame = nextSameNode;    
-
-    ''' headerTable { item:[freq, treeNode], 
-                      item:[freq, treeNode],
-                      ....
-                    }
-    '''
+    treeNode.nextSame = nextSameNode;
 
 
 def mineFPTree(headerTable):
@@ -178,27 +193,13 @@ if __name__ == '__main__':
     # dataFile = "winequalityN.txt";
     minimumSup = 90;
     minConfidence = 0.8;
-    
-    ''' Read the data.txt and then set the data format like:
-        items = {{A,B,C},{B,C,D},...}
-    '''
+
     items = readData(dataFile);
-    ''' sortFreqSup { item:freq, item:freq,....}
-        leave the item whose frequence is bigger than minimumSup
-    '''
+
     sortFreqSup = cleanNsort(items, minimumSup);
-    ''' orderItems [ item, item, item, ....]
-        eliminate items which not in the sortedFreqSup
-        and order each items as sortedFreqSup's order
-        See details P.51
-    '''
+
     orderItems = orderItemByFreq(items, sortFreqSup);
-    ''' headerTable 
-        { item:[freq, treeNode], 
-          item:[freq, treeNode],
-          ....
-        }
-    '''
+    
     headerTable = createHeaderTable(sortFreqSup);
     fpTree = constructTree(orderItems, headerTable);
     freqPatterns = mineFPTree(headerTable);
