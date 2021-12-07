@@ -127,9 +127,6 @@ def mineFPTree(headerTable):
                 freEl = set(freEl);
                 freqPattern = freEl.union(set([item]));
                 freqPatterns[frozenset(freqPattern)] = patternFreq;
-        # for condFPTrees
-        freqPattern = condFPTrees.union(set([item]));
-        freqPatterns[frozenset(freqPattern)] = patternFreq;
     return freqPatterns;
 
 
