@@ -98,6 +98,14 @@ def updateNextSame(treeNode, nextSameNode):
     treeNode.nextSame = nextSameNode;
 
 
+'''
+By tracing the head column in HeaderTable
+Figure out each item's Cond. Pattern base,
+then generate its Cond. FP-tree,
+finally, union the item and its Cond. FP-tree,
+we can get the Frequent patterns.
+See details P.51
+'''
 def mineFPTree(headerTable):
     freqPatterns = dict();
     
