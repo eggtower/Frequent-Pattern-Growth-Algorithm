@@ -3,7 +3,7 @@ from audioop import reverse
 from itertools import combinations
 
 ''' Read the data.txt and then set the data format like:
-    items = {{A,B,C},{B,C,D},...}
+    items = [{A,B,C},{B,C,D},...]
 '''
 def readData(fileName):
     TDB = dict();
@@ -116,11 +116,18 @@ def mineFPTree(headerTable):
                 patternFreq += treeNode.freq;
         
         condFPTrees = set();
-        if(len(condPatternBase) >= 1):
+        if(len(condPatternBase) > 0):
             condFPTrees.update(condPatternBase[0]);
             for patternBase in condPatternBase:
-                condFPTrees.intersection(patternBase);
+                condFPTrees = condFPTrees.intersection(patternBase);
         
+        # for all sub-set of condFPTrees
+        for el in range(len(condFPTrees)):
+            for freEl in combinations(condFPTrees, el):
+                freEl = set(freEl);
+                freqPattern = freEl.union(set([item]));
+                freqPatterns[frozenset(freqPattern)] = patternFreq;
+        # for condFPTrees
         freqPattern = condFPTrees.union(set([item]));
         freqPatterns[frozenset(freqPattern)] = patternFreq;
     return freqPatterns;
@@ -183,7 +190,7 @@ if __name__ == '__main__':
     # init
     dataFile = "data.txt";
     # dataFile = "winequalityN.txt";
-    minimumSup = 90;
+    minimumSup = 50;
     minConfidence = 0.8;
 
     items = readData(dataFile);
@@ -198,7 +205,8 @@ if __name__ == '__main__':
     
     print("Frequent patterns:");
     for pattern, freq in freqPatterns.items():
-        print(list(pattern), freq);
+        if(len(pattern) > 1):
+            print(list(pattern), freq);
     
     print("Association rules:");
     for rule in generateRules(freqPatterns, minConfidence):
